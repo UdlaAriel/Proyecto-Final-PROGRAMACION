@@ -3,21 +3,28 @@
 #include <windows.h>
 
 #define MAX 50
+#define MIN 25
 
 typedef struct informacionPersonal{
     char ID[MAX];
     char Nombre[MAX];
     char Cargo[MAX];
+    char Salario[MIN];
+    char SalarioTOTAL[MIN];
 };
+
+void funcionConsulta ();
+void funcionActualizacion ();
 
 int main ()
 {
-    int vflag, opc;
+    int vflag = 1, opc = 0;
     char *opciones[] = {
         "1. Ver informacion de nomina",
         "2. Actualizar nomina",
         "3. Salir"
     };
+
     printf("\n\nIniciando..");
     Sleep(200);
 
@@ -28,21 +35,17 @@ int main ()
 
         switch (opc)
         {
-        case 1:{ //Ver información de nómina
-            
-        }
-        case 2:{ //Modificar o actualizar la información de nómina
-            
-        }
-        case 3:{ //Salir del programañ
-            
-        }
-        default:
+        case 1: funcionConsulta(); break; //Ver información de nómina
+        case 2: funcionActualizacion(); break; //Modificar o actualizar la información de nómina          
+        case 3: vflag = 0; break;//Salir del programa
+        default: {
+            printf("Ingrese una opción valida.\n"); 
+            scanf("%d", &opc); 
             break;
+            }
         }
-
 
     } while (vflag);    //Si vflag es igual a 0, el programa se cerrará
-    
+    printf("Ha cerrado el programa.");
     return 0;
 }
