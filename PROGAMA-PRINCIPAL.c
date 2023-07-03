@@ -2,22 +2,24 @@
 #include <conio.h>
 #include <windows.h>
 
-#define MAX 50
+#define MAX 100
+#define MEDIUM 50
 #define MIN 25
 
-void funcionConsulta (); //Lee los datos dentro del fichero y los imprime en pantalla
-void funcionActualizacion (); //Permite cambiar o acutalizar los datos del fichero
-void cantidadNomina (int *filas); //Devuelve la cantidad de personas dentro de la nómina
+int funcionConsulta (); //Lee los datos dentro del fichero y los imprime en pantalla
+int funcionActualizacion (); //Permite cambiar o acutalizar los datos del fichero
+void cantidadNomina (int *pointer); //Devuelve la cantidad de personas dentro de la nómina
 
 int filas = 0; //numero de filas
 char archivo[] = "BASE_DE_DATOS.csv"; //Nombre de archivo que va a ser utilizado
-typedef struct informacionPersonal{ //Estructura que almacenará la información de cada persona en nómina
-    char ID[MAX];
-    char Nombre[MAX];
-    char Cargo[MAX];
-    char Salario[MIN];
-    char SalarioTOTAL[MIN];
-}datos[];
+typedef struct{ //Estructura que almacenará la información de cada persona en nómina
+    char infoNomina[MAX];
+    char ID[MEDIUM];
+    char Nombre[MEDIUM];
+    char Cargo[MEDIUM];
+    int Salario[MIN];
+    int SalarioTOTAL[MIN];
+}informacion;
 
 int main ()
 {
@@ -68,14 +70,36 @@ void cantidadNomina (int *pointer){ //Funcion para determinar la cantidad de per
     fclose(archivoBASE);
 }
 
-void funcionConsulta (){
+int funcionConsulta (){
+    informacion *SIZE;  //Definición de struct para almacenar la información de cadad miembro dentro de la nómina
+    SIZE = (informacion*) malloc(filas * sizeof(informacion));
+
+    if(SIZE==NULL){ //Comprobación de 
+        printf("\nError al asignar memoria dinamicamente.\n");
+        return 1;
+    }
+
     FILE *archivoBASE;
+    
+    system("cls");
     if((archivoBASE = fopen(archivo,"r"))==NULL) printf("Lo sentimos, existe un error al abrir el archivo %s",archivo);
     else printf("Archivo abierto correctamente.");
+
+    printf("\nID\tNOMBRE\tPUESTO\tSALARIO MENSUAL\tH.E MENSUALES\tSALARIO TOTAL\n");
+
+    while (!feof(archivoBASE)){
+        for (int i = 0; i < filas; i++){
+            if(fgetc(archivoBASE)!=('\n' || ',')){
+                
+            }
+        }
+    }
+    
+
     fclose(archivoBASE);
 }
 
-void funcionActualizacion (){
+int funcionActualizacion (){
 
 }
 
